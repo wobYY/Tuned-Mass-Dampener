@@ -1,0 +1,15 @@
+Tuned mass damper
+- https://engineering.purdue.edu/~ce573/Documents/Intro%20to%20Structural%20Motion%20Control_Chapter4.pdf
+- https://physics.stackexchange.com/questions/519356/how-does-the-tuned-mass-damper-on-taipei-101-work
+- https://www.sciencedirect.com/science/article/pii/S2405844021013244
+- 
+
+- https://en.wikipedia.org/wiki/Tuned_mass_damper
+- https://www.atlasobscura.com/places/tuned-mass-damper-of-taipei-101
+- https://en.wikipedia.org/wiki/Taipei_101
+- https://www.popularmechanics.com/technology/design/a16819/tapei-101-mass-damper-record/
+- https://www.reddit.com/r/EngineeringPorn/comments/3gdimu/taipei_101_mass_damper_breaks_record_during/
+- https://www.taylordevices.com/industries/structural/
+- https://structures-explained.com/taipei-101-structural-engineering/
+- https://theconstructor.org/structural-engg/tuned-mass-damper/1198/
+- https://www.gerb.com/tuned-mass-dampers-tmd/

@@ -16,14 +16,14 @@ def calculate(
 ):
     # Variables
     print("Setting initial variables...")
-    k = k if k != None else 1 * 10**-1  # Overall stiffness of the building [N/m]
-    F0 = F0 if F0 != None else 5 * 10**-7  # Friction force [N]
-    A = A if A != None else 1 * 10**-2  # Aplitude [m]
-    omega = omega if omega != None else 0.1  # Angular frequency [rad/s]
-    g = 9.81  # Gravitational acceleration [m/s^2]
-    L = 1000  # Length of the pendalum rope [m]
     # Mass of the building is 1 (to simplify the calculations)
     # If mass is not 1, differential each differential equation should be divided by mass
+    k = k if k != None else 1 * 10**-1  # Overall stiffness of the building
+    F0 = F0 if F0 != None else 5 * 10**-7  # Friction force
+    A = A if A != None else 1 * 10**-2  # Aplitude
+    omega = omega if omega != None else 0.1  # Angular frequency
+    g = 9.81  # Gravitational acceleration
+    L = 1000  # Length of the pendalum rope
     print("Initial variables set!\n")
 
     # Pendalum translation vector
@@ -34,7 +34,7 @@ def calculate(
             raise ValueError("Time cannot be negative")
 
         # print("Time: ", t)
-        if 5 <= t < 15:
+        if 10 <= t < 25:
             # print("Earthquake!")
             return A * np.sin(omega * t)
         else:
@@ -79,6 +79,7 @@ def calculate(
     def D(X, t):
         # X0, X1, X2, X3, X4, V5, V6, V7, V8, V9 = X
         print(f"Solving X for t = {t}...")
+        # Disable Black formatter for this function
         # fmt: off
         return np.array([
                 X[5],
@@ -99,7 +100,7 @@ def calculate(
     X0 = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) if X0 == None else X0
 
     # Time interval (s)
-    t_stop = 300  # Mag. 5-6 earthquake lasts up to 30s
+    t_stop = 120  # Mag. 5-6 earthquake lasts up to 30s
     nt = t_stop * 300  # Number of time steps
 
     # Time vector
@@ -119,7 +120,7 @@ def calculate(
         max_x = np.around(np.max(X[:, 0:vel_x]), decimals=3)
         print("Min_x: ", min_x, "\nMax_x: ", max_x)
         # plt.xlim(min_x * 1.2, max_x * 1.2)
-        # plt.ylim(30, 830)
+        plt.ylim(0, 122)
         # plt.plot(X[:, 0], T, label="x0", color="red")  # Ground floor
         plt.plot(X[:, 1], T, label="x1", color="green")
         plt.plot(X[:, 2], T, label="x2", color="blue")
@@ -140,12 +141,12 @@ def calculate(
         max_x = np.around(np.max(X[:, pol_x:vel_x]), decimals=3)
         print("Min_x: ", min_x, "\nMax_x: ", max_x)
         # plt.xlim(min_x * 1.2, max_x * 1.2)
-        # plt.ylim(25, 60)
-        # plt.plot(X[:, 5], T, label='v1', color='red') # Ground speed
-        plt.plot(X[:, 6], T, label="v2", color="green")
-        plt.plot(X[:, 7], T, label="v3", color="blue")
-        plt.plot(X[:, 8], T, label="v4", color="orange")
-        plt.plot(X[:, 9], T, label="v5", color="cyan")
+        plt.ylim(0, 122)
+        # plt.plot(X[:, 5], T, label='v0', color='red') # Ground speed
+        plt.plot(X[:, 6], T, label="v1", color="green")
+        plt.plot(X[:, 7], T, label="v2", color="blue")
+        plt.plot(X[:, 8], T, label="v3", color="orange")
+        plt.plot(X[:, 9], T, label="v4", color="cyan")
         plt.xlabel("v (brzina)")
         plt.ylabel("t (vrijeme)")
         plt.legend()

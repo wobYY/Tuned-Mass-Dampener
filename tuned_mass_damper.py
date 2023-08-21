@@ -2,6 +2,8 @@
 import numpy as np
 from scipy.integrate import odeint
 from matplotlib import pyplot as plt
+from matplotlib.animation import FuncAnimation
+from matplotlib.patches import Rectangle
 
 # from matplotlib.animation import FuncAnimation
 # from matplotlib.patches import Rectangle
@@ -155,20 +157,63 @@ def calculate(
         plt.figure()
 
         # Graph - pendulum
-        plt.ylim(0, t_stop)
-        plt.plot(x_pendulum, T, label="pendulum", color="red")
-        plt.xlabel("x (pomak njihala)")
-        plt.ylabel("t (vrijeme)")
-        plt.legend()
+        # plt.ylim(0, t_stop)
+        # plt.plot(x_pendulum, T, label="pendulum", color="red")
+        # plt.xlabel("x (pomak njihala)")
+        # plt.ylabel("t (vrijeme)")
+        # plt.legend()
 
         # Printing values
         print("\n### Values ###")
         print(f"Passed!\n- k = {k},\n- F0 = {F0},\n- A = {A},\n- omega = {omega}")
-    except ValueError:
+
+        # Animation
+        print("### Animation ###")
+
+        fig, ax = plt.subplots()
+
+        def frames(i):
+            print(f"Creating frame {i}/{nt}...")
+            plt.clf()
+            plt.xlim(0, 10)
+            plt.ylim(-1, 32)
+            ax = plt.gca()
+            # Multipling translation vector by 3 to make it more easily visible
+            ax.add_patch(Rectangle((0, -1), 10, 1, color="green"))
+            # Disable Black formatter
+            # fmt: off
+            ax.add_patch(
+                Rectangle((2.5 + X[i, 0]*3, 0), 5, 6, color="red", label="Floor 1")
+            )
+            ax.add_patch(
+                Rectangle((2.5 + X[i, 1]*3, 6), 5, 6, color="green", label="Floor 2")
+            )
+            ax.add_patch(
+                Rectangle((2.5 + X[i, 2]*3, 12), 5, 6, color="blue", label="Floor 3")
+            )
+            ax.add_patch(
+                Rectangle((2.5 + X[i, 3]*3, 18), 5, 6, color="orange", label="Floor 4")
+            )
+            ax.add_patch(
+                Rectangle((2.5 + X[i, 4]*3, 24), 5, 6, color="cyan", label="Floor 5")
+            )
+            # fmt: on
+
+        print("Creating animation...")
+        animation = FuncAnimation(
+            fig, frames, frames=nt
+        )  # Create an animation with a total of nt frames
+        print(f"Animation created! Saving the animation at {nt / t_stop}fps...")
+        animation.save(
+            "Animacija.avi", fps=(nt) / t_stop
+        )  # Save the animation as a video file (avi)
+    except ValueError as e:
         print("\n### Values ###")
         print(f"Failed!\n- k = {k},\n- F0 = {F0},\n- A = {A},\n- omega = {omega}")
+        print("\n### Error ###")
+        print(e)
 
-    return [x_pendulum, T]
+    return [x_pendulum, T]  # Return pendulum translation vector and time vector
 
 
 if __name__ == "__main__":

@@ -1,11 +1,6 @@
 mut/
-
 __pycache__/
-
-ffmpeg-2023-08-17-git-9ae4863cc5-essentials_build.7z
-
+ffmpeg*/
+ffmpeg*.7z
 ffmpeg.exe
-
-ffmpeg/
-
 *.avi

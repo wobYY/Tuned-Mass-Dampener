@@ -15,6 +15,9 @@ def calculate(
     A: float = None,
     omega: float = None,
     X0: dict = None,
+    figure_name: str = "Graph",
+    create_animation: bool = False,
+    animation_file_name: str = "Animation.avi",
 ):
     # Variables
     print("Setting initial variables...")
@@ -131,6 +134,7 @@ def calculate(
         plt.xlabel("x (pomak)")
         plt.ylabel("t (vrijeme)")
         plt.legend()
+        plt.savefig(f"{figure_name}_x.png")
 
         # Split x and v graphs
         plt.figure()
@@ -152,6 +156,7 @@ def calculate(
         plt.xlabel("v (brzina)")
         plt.ylabel("t (vrijeme)")
         plt.legend()
+        plt.savefig(f"{figure_name}_v.png")
 
         # Spliting v and pendulum graphs
         plt.figure()
@@ -168,6 +173,9 @@ def calculate(
         print(f"Passed!\n- k = {k},\n- F0 = {F0},\n- A = {A},\n- omega = {omega}")
 
         # Animation
+        if create_animation != True:
+            return
+        
         print("### Animation ###")
 
         fig, ax = plt.subplots()
@@ -205,7 +213,7 @@ def calculate(
         )  # Create an animation with a total of nt frames
         print(f"Animation created! Saving the animation at {nt / t_stop}fps...")
         animation.save(
-            "Animacija.avi", fps=(nt) / t_stop
+            animation_file_name, fps=((nt) / t_stop)*8
         )  # Save the animation as a video file (avi)
     except ValueError as e:
         print("\n### Values ###")

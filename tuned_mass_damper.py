@@ -70,7 +70,7 @@ def calculate(
     # Friction force
     def F_f(v, x):  # v = x_dot, x = x
         if v > 0:
-            return -F0
+            return -F0  # pylint: disable=E1130
         elif v < 0:
             return F0
         elif v == 0 and k * x <= F0:
@@ -173,9 +173,9 @@ def calculate(
         print(f"Passed!\n- k = {k},\n- F0 = {F0},\n- A = {A},\n- omega = {omega}")
 
         # Animation
-        if create_animation != True:
+        if create_animation is not True:
             return
-        
+
         print("### Animation ###")
 
         fig, ax = plt.subplots()
@@ -213,13 +213,13 @@ def calculate(
         )  # Create an animation with a total of nt frames
         print(f"Animation created! Saving the animation at {nt / t_stop}fps...")
         animation.save(
-            animation_file_name, fps=((nt) / t_stop)*8
+            animation_file_name, fps=((nt) / t_stop) * 8
         )  # Save the animation as a video file (avi)
-    except ValueError as e:
+    except ValueError as error:
         print("\n### Values ###")
         print(f"Failed!\n- k = {k},\n- F0 = {F0},\n- A = {A},\n- omega = {omega}")
         print("\n### Error ###")
-        print(e)
+        print(error)
 
     return [x_pendulum, T]  # Return pendulum translation vector and time vector
 
